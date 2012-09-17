@@ -1,0 +1,39 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <!--
+    This jelly script is used for per-project configuration.
+
+    See global.jelly for a general discussion about jelly script.
+  -->
+
+  <!--
+    Creates a text field that shows the value of the "name" property.
+    When submitted, it will be passed to the corresponding constructor parameter.
+  -->
+  <f:entry title="API Key" field="apiToken">
+    <f:textbox />
+  </f:entry>
+  <f:entry title="Username" field="userName">
+    <f:textbox />
+  </f:entry>
+  <f:entry title="APK File" field="filePath">
+    <f:textbox />
+  </f:entry>
+  <f:entry title="Build Notes" field="buildNotes">
+    <f:textarea />
+  </f:entry>
+  <f:advanced>
+    <f:entry title="Proxy Host" field="proxyHost">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="Proxy Port" field="proxyPort">
+        <f:textbox />
+    </f:entry>
+   <f:entry title="Proxy User" field="proxyUser">
+       <f:textbox />
+   </f:entry>
+   <f:entry title="Proxy Password" field="proxyPass">
+       <f:password />
+   </f:entry>
+
+  </f:advanced>
+</j:jelly>
