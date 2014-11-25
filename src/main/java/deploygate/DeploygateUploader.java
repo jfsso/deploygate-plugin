@@ -32,7 +32,7 @@ public class DeploygateUploader implements Serializable {
 		String filePath;
 		String apiToken;
 		String buildNotes;
-        String distributionKey;
+		String distributionKey;
 		File file;
 		String proxyHost;
 		String proxyUser;
@@ -66,9 +66,9 @@ public class DeploygateUploader implements Serializable {
 		MultipartEntity entity = new MultipartEntity();
 		entity.addPart("token", new StringBody(ur.apiToken));
 		entity.addPart("message", new StringBody(ur.buildNotes));
-        if(ur.distributionKey != null && ! ur.distributionKey.isEmpty()) {
-            entity.addPart("distribution_key", new StringBody(ur.distributionKey));
-        }
+		if(ur.distributionKey != null && ! ur.distributionKey.isEmpty()) {
+			entity.addPart("distribution_key", new StringBody(ur.distributionKey));
+		}
         entity.addPart("file", fileBody);
 		httpPost.setEntity(entity);
 
