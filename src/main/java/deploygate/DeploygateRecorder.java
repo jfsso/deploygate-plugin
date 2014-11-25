@@ -53,7 +53,13 @@ public class DeploygateRecorder extends Recorder {
 		return this.filePath;
 	}
 
-	private String proxyHost;
+    private String distributionKey;
+
+    public String getDistributionKey() {
+        return distributionKey;
+    }
+
+    private String proxyHost;
 
 	public String getProxyHost() {
 		return proxyHost;
@@ -79,12 +85,13 @@ public class DeploygateRecorder extends Recorder {
 
 	@DataBoundConstructor
 	public DeploygateRecorder(String apiToken, String userName,
-			String buildNotes, String filePath, String proxyHost,
+			String buildNotes, String filePath,String distributionKey, String proxyHost,
 			String proxyUser, String proxyPass, int proxyPort) {
 		this.apiToken = apiToken;
 		this.userName = userName;
 		this.buildNotes = buildNotes;
 		this.filePath = filePath;
+        this.distributionKey = distributionKey;
 		this.proxyHost = proxyHost;
 		this.proxyUser = proxyUser;
 		this.proxyPass = proxyPass;
@@ -159,6 +166,7 @@ public class DeploygateRecorder extends Recorder {
 		ur.filePath = vars.expand(expandPath);
 		ur.apiToken = vars.expand(apiToken);
 		ur.buildNotes = vars.expand(buildNotes);
+        ur.distributionKey = distributionKey;
 		ur.proxyHost = proxyHost;
 		ur.proxyPass = proxyPass;
 		ur.proxyPort = proxyPort;
