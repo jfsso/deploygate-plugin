@@ -69,7 +69,7 @@ public class DeploygateUploader implements Serializable {
 		if(ur.distributionKey != null && ! ur.distributionKey.isEmpty()) {
 			entity.addPart("distribution_key", new StringBody(ur.distributionKey));
 		}
-        entity.addPart("file", fileBody);
+		entity.addPart("file", fileBody);
 		httpPost.setEntity(entity);
 
 		HttpResponse response = httpClient.execute(targetHost, httpPost);
