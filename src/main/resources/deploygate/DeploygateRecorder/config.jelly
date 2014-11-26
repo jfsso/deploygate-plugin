@@ -22,6 +22,9 @@
     <f:textarea />
   </f:entry>
   <f:advanced>
+    <f:entry title="Distribution Key" field="distributionKey">
+        <f:textbox />
+    </f:entry>
     <f:entry title="Proxy Host" field="proxyHost">
         <f:textbox />
     </f:entry>
