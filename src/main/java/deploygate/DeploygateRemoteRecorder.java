@@ -1,7 +1,7 @@
 package deploygate;
 
 import hudson.model.BuildListener;
-import hudson.remoting.Callable;
+import jenkins.security.MasterToSlaveCallable;
 
 import java.io.File;
 import java.io.Serializable;
@@ -9,10 +9,9 @@ import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Code for sending a build to TestFlight which can run on a master or slave.
+ * Code for sending a build to Deploygate which can run on a master or slave.
  */
-public class DeploygateRemoteRecorder implements Callable<Object, Throwable>,
-		Serializable {
+public class DeploygateRemoteRecorder extends MasterToSlaveCallable {
 	final private boolean pathSpecified;
 	final private DeploygateUploader.UploadRequest uploadRequest;
 	final private BuildListener listener;

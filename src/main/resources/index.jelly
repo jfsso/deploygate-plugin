@@ -2,5 +2,5 @@
   This view is used to render the installed plugins page.
 -->
 <div>
-  This plugin will upload a .apk file to deploygate.com for distribution.
+  This plugin will upload a .ipa/.apk file to deploygate.com for distribution.
 </div>
