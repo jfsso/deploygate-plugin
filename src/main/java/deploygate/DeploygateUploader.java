@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -16,6 +17,7 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -45,6 +47,7 @@ public class DeploygateUploader implements Serializable {
 			org.json.simple.parser.ParseException {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
+		httpClient.getParams().setParameter(HttpProtocolParams.HTTP_CONTENT_CHARSET, StandardCharsets.UTF_8);
 
 		// Configure the proxy if necessary
 		if (ur.proxyHost != null && !ur.proxyHost.isEmpty() && ur.proxyPort > 0) {

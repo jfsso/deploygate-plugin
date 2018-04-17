@@ -15,7 +15,3 @@ Version 1.0.0 *(2012-09-17)*
 --------------------------
 
 Initial release
-
-Known Issue
-==========
- * Release notes are garbled in DeployGate, if it contains Non ASCII characters. (1.1.1)
