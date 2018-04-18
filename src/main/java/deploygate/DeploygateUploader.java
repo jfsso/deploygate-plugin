@@ -43,24 +43,19 @@ public class DeploygateUploader implements Serializable {
 		int proxyPort;
 	}
 
-	public Map upload(UploadRequest ur) throws IOException,
-			org.json.simple.parser.ParseException {
+	public Map upload(UploadRequest ur) throws IOException, org.json.simple.parser.ParseException {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
-		httpClient.getParams().setParameter(HttpProtocolParams.HTTP_CONTENT_CHARSET, StandardCharsets.UTF_8);
 
 		// Configure the proxy if necessary
 		if (ur.proxyHost != null && !ur.proxyHost.isEmpty() && ur.proxyPort > 0) {
 			Credentials cred = null;
 			if (ur.proxyUser != null && !ur.proxyUser.isEmpty())
-				cred = new UsernamePasswordCredentials(ur.proxyUser,
-						ur.proxyPass);
+				cred = new UsernamePasswordCredentials(ur.proxyUser, ur.proxyPass);
 
-			httpClient.getCredentialsProvider().setCredentials(
-					new AuthScope(ur.proxyHost, ur.proxyPort), cred);
+			httpClient.getCredentialsProvider().setCredentials(new AuthScope(ur.proxyHost, ur.proxyPort), cred);
 			HttpHost proxy = new HttpHost(ur.proxyHost, ur.proxyPort);
-			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-					proxy);
+			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 		}
 
 		HttpHost targetHost = new HttpHost("deploygate.com", 443, "https");
@@ -69,8 +64,8 @@ public class DeploygateUploader implements Serializable {
 
 		MultipartEntity entity = new MultipartEntity();
 		entity.addPart("token", new StringBody(ur.apiToken));
-		entity.addPart("message", new StringBody(ur.buildNotes));
-		entity.addPart("release_note", new StringBody(ur.releaseNotes));
+		entity.addPart("message", new StringBody(ur.buildNotes, StandardCharsets.UTF_8));
+		entity.addPart("release_note", new StringBody(ur.releaseNotes, StandardCharsets.UTF_8));
 		if(ur.distributionKey != null && ! ur.distributionKey.isEmpty()) {
 			entity.addPart("distribution_key", new StringBody(ur.distributionKey));
 		}
@@ -91,7 +86,6 @@ public class DeploygateUploader implements Serializable {
 
 		JSONParser parser = new JSONParser();
 
-		return (Map) parser
-				.parse(new BufferedReader(new InputStreamReader(is)));
+		return (Map)parser.parse(new BufferedReader(new InputStreamReader(is)));
 	}
 }
