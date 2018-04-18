@@ -5,6 +5,8 @@ import java.io.File;
 public class DeploygateUploaderMain {
     /**
      * Useful for testing
+     * @param args Command line arguments
+     * @throws Exception
      */
     public static void main(String[] args) throws Exception {
         DeploygateUploader uploader = new DeploygateUploader();
