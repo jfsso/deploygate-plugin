@@ -5,6 +5,7 @@ import jenkins.security.MasterToSlaveCallable;
 
 import java.io.File;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang.StringUtils;
 

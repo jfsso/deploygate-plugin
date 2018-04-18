@@ -19,11 +19,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.io.FileUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -51,6 +55,12 @@ public class DeploygateRecorder extends Recorder {
 
 	public String getReleaseNotes() {
 		return this.releaseNotes;
+	}
+
+	private String releaseNotesFilePath;
+
+	public String getReleaseNotesFilePath() {
+		return this.releaseNotesFilePath;
 	}
 
 	private String filePath;
@@ -91,12 +101,15 @@ public class DeploygateRecorder extends Recorder {
 
 	@DataBoundConstructor
 	public DeploygateRecorder(String apiToken, String userName,
-			String buildNotes, String releaseNotes, String filePath,String distributionKey, String proxyHost,
+			String buildNotes, String releaseNotes, String releaseNotesFilePath,
+			String filePath, String distributionKey,
+			String proxyHost,
 			String proxyUser, String proxyPass, int proxyPort) {
 		this.apiToken = apiToken;
 		this.userName = userName;
 		this.buildNotes = buildNotes;
 		this.releaseNotes = releaseNotes;
+		this.releaseNotesFilePath = releaseNotesFilePath;
 		this.filePath = filePath;
 		this.distributionKey = distributionKey;
 		this.proxyHost = proxyHost;
@@ -173,7 +186,22 @@ public class DeploygateRecorder extends Recorder {
 		ur.filePath = vars.expand(expandPath);
 		ur.apiToken = vars.expand(apiToken);
 		ur.buildNotes = vars.expand(buildNotes);
-		ur.releaseNotes = vars.expand(releaseNotes);
+
+		String expandedReleaseNotes = vars.expand(releaseNotes);
+		String expandedReleaseNotesFilePath = vars.expand(releaseNotesFilePath);
+		
+		if(expandedReleaseNotesFilePath.isEmpty()) ur.releaseNotes = expandedReleaseNotes;
+		else {
+			try {
+				ur.releaseNotes = expandedReleaseNotes
+				 + FileUtils.readFileToString(
+					 new File(vars.get("WORKSPACE", "") + expandedReleaseNotesFilePath), StandardCharsets.UTF_8);
+			}
+			catch (IOException ex) {
+				ur.releaseNotes = expandedReleaseNotes;
+			}
+		}
+
 		ur.distributionKey = distributionKey;
 		ur.proxyHost = proxyHost;
 		ur.proxyPass = proxyPass;
