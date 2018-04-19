@@ -26,7 +26,7 @@ public class DeploygateRemoteRecorder extends MasterToSlaveCallable {
 	}
 
 	public Object call() throws Throwable {
-		uploadRequest.file = identifyApk();
+		uploadRequest.file = identifyApp();
 
 		listener.getLogger().println(uploadRequest.file);
 
@@ -34,23 +34,23 @@ public class DeploygateRemoteRecorder extends MasterToSlaveCallable {
 		return uploader.upload(uploadRequest);
 	}
 
-	private File identifyApk() {
+	private File identifyApp() {
 		if (pathSpecified) {
 			return new File(uploadRequest.filePath);
 		} else {
 			File workspaceDir = new File(uploadRequest.filePath);
-			File possibleIpa = DeploygateRemoteRecorder.findApk(workspaceDir);
+			File possibleIpa = DeploygateRemoteRecorder.findApp(workspaceDir);
 			return possibleIpa != null ? possibleIpa : workspaceDir;
 		}
 	}
 
-	public static File findApk(File root) {
+	public static File findApp(File root) {
 		for (File file : root.listFiles()) {
 			if (file.isDirectory()) {
-				File ipaResult = findApk(file);
+				File ipaResult = findApp(file);
 				if (ipaResult != null)
 					return ipaResult;
-			} else if (file.getName().endsWith(".apk")) {
+			} else if (file.getName().endsWith(".apk") || file.getName().endsWith(".ipa")) {
 				return file;
 			}
 		}

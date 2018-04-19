@@ -195,7 +195,7 @@ public class DeploygateRecorder extends Recorder {
 			try {
 				ur.releaseNotes = expandedReleaseNotes
 				 + FileUtils.readFileToString(
-					 new File(vars.get("WORKSPACE", "") + expandedReleaseNotesFilePath), StandardCharsets.UTF_8);
+					 new File(vars.get("WORKSPACE", ""), expandedReleaseNotesFilePath), StandardCharsets.UTF_8);
 			}
 			catch (IOException ex) {
 				ur.releaseNotes = expandedReleaseNotes;
