@@ -1,71 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>1.399</version><!-- which version of Jenkins is this plugin built against? -->
-  </parent>
-
-  <groupId>org.jenkins-ci.plugins</groupId>
-  <artifactId>deploygate</artifactId>
-  <name>DeployGate Plugin</name>
-  <description>Uploads .apk files to www.deploygate.com</description>
-  <version>1.1.0</version>
-  <packaging>hpi</packaging>
-
-  <!-- get every artifact through maven.glassfish.org, which proxies all the artifacts that we need -->
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
-
-  <scm>
-    <connection>scm:git:ssh://github.com/jfsso/deploygate-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/jfsso/deploygate-plugin.git</developerConnection>
-    <url>https://github.com/jfsso/deploygate-plugin</url>
-  </scm>
-
-  <url>http://wiki.jenkins-ci.org/display/JENKINS/DeployGate+Plugin</url>
-
-
-  <developers>
-    <developer>
-      <id>jfsso</id>
-      <name>Joao Orui</name>
-      <email>fsantiago@gmail.com</email>
-    </developer>
-  </developers>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>${httpclient.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpmime</artifactId>
-      <version>${httpclient.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
-      <artifactId>json-simple</artifactId>
-      <version>1.1</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
-
-  <properties>
-    <httpclient.version>4.0.1</httpclient.version>
-  </properties>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>3.4</version><!-- which version of Jenkins is this plugin built against? -->
+        <relativePath />
+    </parent>
+    <groupId>io.jenkins.plugins</groupId>
+    <artifactId>deploygate</artifactId>
+    <version>1.1.1</version>
+    <packaging>hpi</packaging>
+    <properties>
+        <jenkins.version>2.7.3</jenkins.version>
+        <java.level>7</java.level>
+        <httpclient.version>4.5.5</httpclient.version>
+    </properties>
+    <name>DeployGate Plugin</name>
+    <description>Uploads .ipa/.apk files to www.deploygate.com</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${httpclient.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    
+    <!-- get every artifact through maven.glassfish.org, which proxies all the artifacts that we need -->
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <scm>
+        <connection>scm:git:ssh://github.com/jfsso/deploygate-plugin.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/jfsso/deploygate-plugin.git</developerConnection>
+        <url>https://github.com/jfsso/deploygate-plugin</url>
+    </scm>
+    
+    <url>http://wiki.jenkins-ci.org/display/JENKINS/DeployGate+Plugin</url>
+    
+    <developers>
+        <developer>
+            <id>jfsso</id>
+            <name>Joao Orui</name>
+            <email>fsantiago@gmail.com</email>
+        </developer>
+    </developers>
 </project>

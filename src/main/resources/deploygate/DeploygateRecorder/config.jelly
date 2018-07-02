@@ -21,6 +21,12 @@
   <f:entry title="Build Notes" field="buildNotes">
     <f:textarea />
   </f:entry>
+  <f:entry title="Release Notes" field="releaseNotes">
+    <f:textarea />
+  </f:entry>
+  <f:entry title="Release Notes File Path" field="releaseNotesFilePath">
+      <f:textbox />
+  </f:entry>
   <f:advanced>
     <f:entry title="Distribution Key" field="distributionKey">
         <f:textbox />

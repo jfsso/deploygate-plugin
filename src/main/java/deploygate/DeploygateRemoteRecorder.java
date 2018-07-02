@@ -1,18 +1,18 @@
 package deploygate;
 
 import hudson.model.BuildListener;
-import hudson.remoting.Callable;
+import jenkins.security.MasterToSlaveCallable;
 
 import java.io.File;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Code for sending a build to TestFlight which can run on a master or slave.
+ * Code for sending a build to Deploygate which can run on a master or slave.
  */
-public class DeploygateRemoteRecorder implements Callable<Object, Throwable>,
-		Serializable {
+public class DeploygateRemoteRecorder extends MasterToSlaveCallable {
 	final private boolean pathSpecified;
 	final private DeploygateUploader.UploadRequest uploadRequest;
 	final private BuildListener listener;
@@ -26,7 +26,7 @@ public class DeploygateRemoteRecorder implements Callable<Object, Throwable>,
 	}
 
 	public Object call() throws Throwable {
-		uploadRequest.file = identifyApk();
+		uploadRequest.file = identifyApp();
 
 		listener.getLogger().println(uploadRequest.file);
 
@@ -34,23 +34,23 @@ public class DeploygateRemoteRecorder implements Callable<Object, Throwable>,
 		return uploader.upload(uploadRequest);
 	}
 
-	private File identifyApk() {
+	private File identifyApp() {
 		if (pathSpecified) {
 			return new File(uploadRequest.filePath);
 		} else {
 			File workspaceDir = new File(uploadRequest.filePath);
-			File possibleIpa = DeploygateRemoteRecorder.findApk(workspaceDir);
+			File possibleIpa = DeploygateRemoteRecorder.findApp(workspaceDir);
 			return possibleIpa != null ? possibleIpa : workspaceDir;
 		}
 	}
 
-	public static File findApk(File root) {
+	public static File findApp(File root) {
 		for (File file : root.listFiles()) {
 			if (file.isDirectory()) {
-				File ipaResult = findApk(file);
+				File ipaResult = findApp(file);
 				if (ipaResult != null)
 					return ipaResult;
-			} else if (file.getName().endsWith(".apk")) {
+			} else if (file.getName().endsWith(".apk") || file.getName().endsWith(".ipa")) {
 				return file;
 			}
 		}
